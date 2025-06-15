@@ -15,3 +15,5 @@ The preeny library files are included in the project in the binaries/preeny dire
 
 ## Fuzzing
 Run the fuzzer with `./start.sh`.
+
+For multiple instances, specify the number of fuzzers as the first command line argument.  Ex: `./start.sh 4`.
