@@ -13,6 +13,9 @@
 ### Preeny
 The preeny library files are included in the project in the binaries/preeny directory.
 
+### libdesock.so
+Included in this project in the binaries folder.
+
 ## Fuzzing
 Run the fuzzer with `./start.sh`.
 

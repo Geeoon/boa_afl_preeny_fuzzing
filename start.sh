@@ -7,9 +7,13 @@
 # PREENY_INFO=1 PREENY_ERROR=1 PREENY_DEBUG=1 LD_PRELOAD=./binaries/preeny/desock_dup.so ./binaries/boa-afl -c ./boa_root
 # probably want to fix the AFL_SKIP_CPUFREQ hack for real fuzzing (i.e., get
 #   rid of the variable and follow the instructions)
+
+# preeny desock preload
+PRELOAD=./binaries/preeny/desock.so
+
 if [ $# -eq 0 ]
 then
-    AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=./binaries/preeny/desock.so afl-fuzz -i ./afl/seeds_dir -o ./afl/output_dir -- ./binaries/boa-afl -c ./boa_root
+    AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=$PRELOAD afl-fuzz -i ./afl/seeds_dir -o ./afl/output_dir -- ./binaries/boa-afl -c ./boa_root
 else
     instances=$(( $1 ))
 
@@ -19,11 +23,11 @@ else
         exit 1
     fi
     
-    AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=./binaries/preeny/desock.so afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -M fuzzer01 -- ./binaries/boa-afl -c ./boa_root &
+    AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=$PRELOAD afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -M fuzzer01 -- ./binaries/boa-afl -c ./boa_root &
     for i in $(seq 2 $instances)
     do
         name="fuzzer0$i"
-        AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=./binaries/preeny/desock.so afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -S $name -- ./binaries/boa-afl -c ./boa_root &
+        AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=$PRELOAD afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -S $name -- ./binaries/boa-afl -c ./boa_root &
     done
     # NOTE: run pkill boa to stop all fuzzers
 fi
