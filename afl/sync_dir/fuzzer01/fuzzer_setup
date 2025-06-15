@@ -1,0 +1,8 @@
+# environment variables:
+AFL_CUSTOM_INFO_PROGRAM=./binaries/boa-afl
+AFL_CUSTOM_INFO_PROGRAM_ARGV=-c ./boa_root
+AFL_CUSTOM_INFO_OUT=./afl/sync_dir/fuzzer01
+AFL_PRELOAD=./binaries/preeny/desock.so
+AFL_SKIP_CPUFREQ=1
+# command line:
+'afl-fuzz' '-i' './afl/seeds_dir' '-o' './afl/sync_dir' '-M' 'fuzzer01' '--' './binaries/boa-afl' '-c' './boa_root'

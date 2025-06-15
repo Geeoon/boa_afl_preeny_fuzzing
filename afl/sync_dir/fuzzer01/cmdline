@@ -1,0 +1,3 @@
+./binaries/boa-afl
+-c
+./boa_root
