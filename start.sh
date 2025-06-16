@@ -27,7 +27,7 @@ else
     for i in $(seq 2 $instances)
     do
         name="fuzzer0$i"
-        AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=$PRELOAD afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -S $name -- ./binaries/boa-afl -c ./boa_root &
+        AFL_SKIP_CPUFREQ=1 AFL_PRELOAD=$PRELOAD afl-fuzz -i ./afl/seeds_dir -o ./afl/sync_dir -S $name -- ./binaries/boa-afl -c ./boa_root > /dev/null &
     done
     # NOTE: run pkill boa to stop all fuzzers
 fi
